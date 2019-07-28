@@ -1,0 +1,46 @@
+データーベース作成
+
+CREATE DATABASE `pow` DEFAULT CHARACTER SET utf8 ;
+
+テーブル削除
+テーブル作成
+drop table if exists ski_area;
+CREATE TABLE `ski_area` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `pref` varchar(10) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `latlong` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+データ挿入
+INSERT INTO ski_area VALUES (0,'shinya', '愛知県', '愛知県あま市',1234567);
+
+CSV出力
+
+1.mysql -u root -p pow --local_infile=1でログインが必要。
+2.
+
+ mysql80 125> SELECT @@local_infile;
++----------------+
+| @@local_infile |
++----------------+
+|              0 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql80 125> SET PERSIST local_infile= 1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql80 125> SELECT @@local_infile;
++----------------+
+| @@local_infile |
++----------------+
+|              1 |
++----------------+
+
+1.2両方の操作が必要。
+load data local infile "C:/Users/shins/OneDrive/デスクトップ/webaplication/skiarea_table.csv"
+ into table ski_area fields terminated by ';' OPTIONALLY ENCLOSED BY '"'
+ IGNORE 1 LINES;
