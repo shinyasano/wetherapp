@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const bodyParser = require('body-parser');
+const port = process.env.PORT || 4000;
 
 app.use(bodyParser.json());
 const connection = mysql.createConnection({
@@ -52,6 +53,6 @@ app.post('/sarch', function(req, res){
 
   
 
-app.listen(4000, function() {
-  console.log("Example app listening on port 4000!");
+app.listen(port, () => {
+  console.log(`listening on ${port}`);
 });
